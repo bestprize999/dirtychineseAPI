@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fengxingshifang.dirtychinese.dao.InfoMapper">
+  <resultMap id="BaseResultMap" type="com.fengxingshifang.dirtychinese.entity.Info">
+    <result column="infoid" jdbcType="VARCHAR" property="infoid" />
+    <result column="infoorcomm" jdbcType="VARCHAR" property="infoorcomm" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="digest" jdbcType="VARCHAR" property="digest" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="publisher" jdbcType="VARCHAR" property="publisher" />
+    <result column="phoneid" jdbcType="VARCHAR" property="phoneid" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lastupdatetime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+    <result column="browsecount" jdbcType="INTEGER" property="browsecount" />
+    <result column="commentcount" jdbcType="INTEGER" property="commentcount" />
+    <result column="supportcount" jdbcType="INTEGER" property="supportcount" />
+    <result column="infostatus" jdbcType="VARCHAR" property="infostatus" />
+    <result column="commentlevel" jdbcType="VARCHAR" property="commentlevel" />
+    <result column="isup" jdbcType="VARCHAR" property="isup" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    infoid, infoorcomm, title, digest, content, publisher, phoneid, createtime, lastupdatetime, 
+    browsecount, commentcount, supportcount, infostatus, commentlevel, isup, created_at, 
+    updated_at
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from info
+  </select>
+  <select id="selectByExample" parameterType="com.fengxingshifang.dirtychinese.entity.InfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.fengxingshifang.dirtychinese.entity.InfoExample">
+    delete from info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
+    insert into info (infoid, infoorcomm, title, 
+      digest, content, publisher, 
+      phoneid, createtime, lastupdatetime, 
+      browsecount, commentcount, supportcount, 
+      infostatus, commentlevel, isup, 
+      created_at, updated_at)
+    values (#{infoid,jdbcType=VARCHAR}, #{infoorcomm,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{digest,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, 
+      #{phoneid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{browsecount,jdbcType=INTEGER}, #{commentcount,jdbcType=INTEGER}, #{supportcount,jdbcType=INTEGER}, 
+      #{infostatus,jdbcType=VARCHAR}, #{commentlevel,jdbcType=VARCHAR}, #{isup,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
+    insert into info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="infoid != null">
+        infoid,
+      </if>
+      <if test="infoorcomm != null">
+        infoorcomm,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="digest != null">
+        digest,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="publisher != null">
+        publisher,
+      </if>
+      <if test="phoneid != null">
+        phoneid,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="lastupdatetime != null">
+        lastupdatetime,
+      </if>
+      <if test="browsecount != null">
+        browsecount,
+      </if>
+      <if test="commentcount != null">
+        commentcount,
+      </if>
+      <if test="supportcount != null">
+        supportcount,
+      </if>
+      <if test="infostatus != null">
+        infostatus,
+      </if>
+      <if test="commentlevel != null">
+        commentlevel,
+      </if>
+      <if test="isup != null">
+        isup,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="infoid != null">
+        #{infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="infoorcomm != null">
+        #{infoorcomm,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="digest != null">
+        #{digest,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="publisher != null">
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneid != null">
+        #{phoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null">
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="browsecount != null">
+        #{browsecount,jdbcType=INTEGER},
+      </if>
+      <if test="commentcount != null">
+        #{commentcount,jdbcType=INTEGER},
+      </if>
+      <if test="supportcount != null">
+        #{supportcount,jdbcType=INTEGER},
+      </if>
+      <if test="infostatus != null">
+        #{infostatus,jdbcType=VARCHAR},
+      </if>
+      <if test="commentlevel != null">
+        #{commentlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="isup != null">
+        #{isup,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fengxingshifang.dirtychinese.entity.InfoExample" resultType="java.lang.Long">
+    select count(*) from info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update info
+    <set>
+      <if test="record.infoid != null">
+        infoid = #{record.infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoorcomm != null">
+        infoorcomm = #{record.infoorcomm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.digest != null">
+        digest = #{record.digest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publisher != null">
+        publisher = #{record.publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneid != null">
+        phoneid = #{record.phoneid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastupdatetime != null">
+        lastupdatetime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.browsecount != null">
+        browsecount = #{record.browsecount,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentcount != null">
+        commentcount = #{record.commentcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.supportcount != null">
+        supportcount = #{record.supportcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.infostatus != null">
+        infostatus = #{record.infostatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentlevel != null">
+        commentlevel = #{record.commentlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isup != null">
+        isup = #{record.isup,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update info
+    set infoid = #{record.infoid,jdbcType=VARCHAR},
+      infoorcomm = #{record.infoorcomm,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      digest = #{record.digest,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=VARCHAR},
+      publisher = #{record.publisher,jdbcType=VARCHAR},
+      phoneid = #{record.phoneid,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      lastupdatetime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      browsecount = #{record.browsecount,jdbcType=INTEGER},
+      commentcount = #{record.commentcount,jdbcType=INTEGER},
+      supportcount = #{record.supportcount,jdbcType=INTEGER},
+      infostatus = #{record.infostatus,jdbcType=VARCHAR},
+      commentlevel = #{record.commentlevel,jdbcType=VARCHAR},
+      isup = #{record.isup,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="getInfolistHome" resultMap="BaseResultMap">
+  	select * from info where infostatus = '01' order by rand() LIMIT #{count}
+  </select>
+  <select id="getInfolistMypublish" resultMap="BaseResultMap">
+  	select * from info where publisher = #{userid} and infostatus = '01' order by lastupdatetime desc LIMIT #{count}
+  </select>
+  <select id="getInfolistMycollect" resultMap="BaseResultMap">
+  	select * from info info 
+		left join userinfocollect coll 
+		on info.infoid = coll.infoid
+		where info.infostatus = '01' 
+		and coll.infocollstatus = '1' 
+		and coll.userid = #{userid} 
+	order by info.lastupdatetime desc LIMIT #{count}
+  </select>
+  <select id="getInfolistMycomment" resultMap="BaseResultMap">
+  	select * from info where publisher = #{userid} and infostatus = '01' order by lastupdatetime desc LIMIT #{count}
+  </select>
+  <select id="getInfolistMyview" resultMap="BaseResultMap">
+  	select * from info info 
+		left join userinfohis his 
+		on info.infoid = his.infoid
+		where info.infostatus = '01' 
+		and his.userinfohisstatus = '01' 
+		and his.userid = #{userid} 
+	order by info.lastupdatetime desc LIMIT #{count}
+  </select>
+  <select id="getInfo" resultMap="BaseResultMap">
+	select * from (
+	select * from info where infoid = #{infoid} and infostatus = '01'
+	union
+	select * from info where exists (select * from inforela where info.infoid = inforela.infoid and inforela.parentinfoid = #{infoid} and inforela.infotype = '1') and info.infostatus = '01'
+	) u order by u.infoid   </select>
+  <select id="getInfoComment" resultMap="BaseResultMap">
+	select * from (
+	select * from comment where exists (select * from inforela where comment.infoid = inforela.infoid and  inforela.parentinfoid = #{infoid} and inforela.infotype = '2') 
+	union 
+	select * from comment where exists (select * from inforela rel1 where comment.infoid = rel1.infoid and exists (select * from inforela rel2 where rel1.parentinfoid = rel2.infoid and rel2.parentinfoid = #{infoid} and rel2.infotype = '1')) 
+	)  u  order by u.infoid desc limit #{count}
+  </select>
+  <insert id="newInfo" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
+    insert into info (infoid, infoorcomm, title, 
+      digest, content, publisher, 
+      phoneid, createtime, lastupdatetime, 
+      browsecount, commentcount, supportcount, 
+      infostatus, commentlevel, isup, 
+      created_at, updated_at)
+    values (#{infoid,jdbcType=VARCHAR}, #{infoorcomm,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{digest,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, 
+      #{phoneid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{browsecount,jdbcType=INTEGER}, #{commentcount,jdbcType=INTEGER}, #{supportcount,jdbcType=INTEGER}, 
+      #{infostatus,jdbcType=VARCHAR}, #{commentlevel,jdbcType=VARCHAR}, #{isup,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="addInfo" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
+    insert into info (infoid, infoorcomm, title, 
+      digest, content, publisher, 
+      phoneid, createtime, lastupdatetime, 
+      browsecount, commentcount, supportcount, 
+      infostatus, commentlevel, isup, 
+      created_at, updated_at)
+    values (#{info.infoid,jdbcType=VARCHAR}, #{info.infoorcomm,jdbcType=VARCHAR}, #{info.title,jdbcType=VARCHAR}, 
+      #{info.digest,jdbcType=VARCHAR}, #{info.content,jdbcType=VARCHAR}, #{info.publisher,jdbcType=VARCHAR}, 
+      #{info.phoneid,jdbcType=VARCHAR}, #{info.createtime,jdbcType=TIMESTAMP}, #{info.lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{info.browsecount,jdbcType=INTEGER}, #{info.commentcount,jdbcType=INTEGER}, #{info.supportcount,jdbcType=INTEGER}, 
+      #{info.infostatus,jdbcType=VARCHAR}, #{info.commentlevel,jdbcType=VARCHAR}, #{info.isup,jdbcType=VARCHAR}, 
+      #{info.createdAt,jdbcType=TIMESTAMP}, #{info.updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="addComment" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
+    insert into comment (infoid, infoorcomm, title, 
+      digest, content, publisher, 
+      phoneid, createtime, lastupdatetime, 
+      browsecount, commentcount, supportcount, 
+      infostatus, commentlevel, isup, 
+      created_at, updated_at)
+    values (#{info.infoid,jdbcType=VARCHAR}, #{info.infoorcomm,jdbcType=VARCHAR}, #{info.title,jdbcType=VARCHAR}, 
+      #{info.digest,jdbcType=VARCHAR}, #{info.content,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{info.phoneid,jdbcType=VARCHAR}, #{info.createtime,jdbcType=TIMESTAMP}, #{info.lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{info.browsecount,jdbcType=INTEGER}, #{info.commentcount,jdbcType=INTEGER}, #{info.supportcount,jdbcType=INTEGER}, 
+      #{info.infostatus,jdbcType=VARCHAR}, #{info.commentlevel,jdbcType=VARCHAR}, #{info.isup,jdbcType=VARCHAR}, 
+      #{info.createdAt,jdbcType=TIMESTAMP}, #{info.updatedAt,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="addColl" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
+    insert into userinfocollect (userinfocollectid, userid, phoneid, 
+      infoid, colltime, cancelcolltime, 
+      infocollstatus, created_at, updated_at)
+    values ()
+  </insert>
+  
+</mapper>

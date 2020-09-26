@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fengxingshifang.dirtychinese.dao.InforelaMapper">
+  <resultMap id="BaseResultMap" type="com.fengxingshifang.dirtychinese.entity.Inforela">
+    <result column="inforelaid" jdbcType="VARCHAR" property="inforelaid" />
+    <result column="infoid" jdbcType="VARCHAR" property="infoid" />
+    <result column="parentinfoid" jdbcType="VARCHAR" property="parentinfoid" />
+    <result column="sortno" jdbcType="VARCHAR" property="sortno" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="lastupdatetime" jdbcType="TIMESTAMP" property="lastupdatetime" />
+    <result column="inforelastatus" jdbcType="VARCHAR" property="inforelastatus" />
+    <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+    <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    inforelaid, infoid, parentinfoid, sortno, createtime, lastupdatetime, inforelastatus, 
+    created_at, updated_at
+  </sql>
+  <select id="selectByExample" parameterType="com.fengxingshifang.dirtychinese.entity.InforelaExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from inforela
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.fengxingshifang.dirtychinese.entity.InforelaExample">
+    delete from inforela
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.fengxingshifang.dirtychinese.entity.Inforela">
+    insert into inforela (inforelaid, infoid, parentinfoid, 
+      sortno, createtime, lastupdatetime, 
+      inforelastatus, created_at, updated_at
+      )
+    values (#{inforelaid,jdbcType=VARCHAR}, #{infoid,jdbcType=VARCHAR}, #{parentinfoid,jdbcType=VARCHAR}, 
+      #{sortno,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{inforelastatus,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fengxingshifang.dirtychinese.entity.Inforela">
+    insert into inforela
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inforelaid != null">
+        inforelaid,
+      </if>
+      <if test="infoid != null">
+        infoid,
+      </if>
+      <if test="parentinfoid != null">
+        parentinfoid,
+      </if>
+      <if test="sortno != null">
+        sortno,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="lastupdatetime != null">
+        lastupdatetime,
+      </if>
+      <if test="inforelastatus != null">
+        inforelastatus,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inforelaid != null">
+        #{inforelaid,jdbcType=VARCHAR},
+      </if>
+      <if test="infoid != null">
+        #{infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="parentinfoid != null">
+        #{parentinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="sortno != null">
+        #{sortno,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null">
+        #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inforelastatus != null">
+        #{inforelastatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.fengxingshifang.dirtychinese.entity.InforelaExample" resultType="java.lang.Long">
+    select count(*) from inforela
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update inforela
+    <set>
+      <if test="record.inforelaid != null">
+        inforelaid = #{record.inforelaid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.infoid != null">
+        infoid = #{record.infoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentinfoid != null">
+        parentinfoid = #{record.parentinfoid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sortno != null">
+        sortno = #{record.sortno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastupdatetime != null">
+        lastupdatetime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inforelastatus != null">
+        inforelastatus = #{record.inforelastatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update inforela
+    set inforelaid = #{record.inforelaid,jdbcType=VARCHAR},
+      infoid = #{record.infoid,jdbcType=VARCHAR},
+      parentinfoid = #{record.parentinfoid,jdbcType=VARCHAR},
+      sortno = #{record.sortno,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      lastupdatetime = #{record.lastupdatetime,jdbcType=TIMESTAMP},
+      inforelastatus = #{record.inforelastatus,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=TIMESTAMP},
+      updated_at = #{record.updatedAt,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
