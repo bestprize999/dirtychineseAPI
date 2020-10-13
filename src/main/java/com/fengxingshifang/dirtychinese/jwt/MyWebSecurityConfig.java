@@ -80,12 +80,13 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/getinfocomment").permitAll()
                 .antMatchers(HttpMethod.GET, "/admin/index").permitAll()
                 .antMatchers(HttpMethod.POST, "/uploadFile").permitAll()
+                .antMatchers(HttpMethod.POST, "/addinfo").permitAll()
 //                .anyRequest().authenticated()
                 .anyRequest().permitAll()
-                .and()
-//                .addFilter(new JWTLoginFilter(authenticationManager()))
-                .addFilter(new JWTLoginFilter(authenticationManager(), userDao))
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userDao));
+//                .and()
+//                .addFilter(new JWTLoginFilter(authenticationManager(), userDao))
+//                .addFilter(new JwtAuthenticationFilter(authenticationManager(), userDao))
+                ;
     }
 
     @Autowired

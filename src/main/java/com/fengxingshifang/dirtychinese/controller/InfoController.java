@@ -1,8 +1,16 @@
 package com.fengxingshifang.dirtychinese.controller;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -119,13 +127,15 @@ public class InfoController {
 	 * @return
 	 */
 	@PostMapping("/newinfo")
-    public void newInfo(@RequestParam("title") String title, @RequestParam("file") MultipartFile file) {
-        String fileName = fileStorageService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
+    public void newInfo(@RequestParam("title") String title, @RequestParam("files") MultipartFile[] files) {
+		for(MultipartFile file:files) {
+	        String fileName = fileStorageService.storeFile(file);
+	
+	        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                .path("/downloadFile/")
+	                .path(fileName)
+	                .toUriString();
+		}
         
         Info info = new Info();
         info.setInfoid(UUID.randomUUID().toString().replace("-", "").toLowerCase());
@@ -142,8 +152,34 @@ public class InfoController {
 	 * 添加info
 	 * @return
 	 */
-	@GetMapping("/addinfo")
-    public void addInfo(@RequestBody Info info) {
+	@PostMapping(value = "/addinfo")
+    public void addInfo(@RequestParam("title") String title, 
+    		@RequestParam("content") String content, 
+    		@RequestParam("multipartFiles[]") MultipartFile[] files,
+    		@RequestParam("imagename[]") String[] filesname) {
+		
+		for(int i=0;i<files.length;i++) {
+	        String fileName = fileStorageService.storeFile(files[i]);
+	
+	        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+	                .path("/downloadFile/")
+	                .path(fileName)
+	                .toUriString();
+	        System.out.println(filesname[i]);
+	        System.out.println(fileDownloadUri);
+	        content = content.replaceAll(filesname[i], fileDownloadUri);
+		}
+//        content = content.replace("{\"insert\":\"\",\"attributes\":{\"embed\":{\"type\":\"image\"", 
+//        		"{\"insert\":\"\\u200b​\",\"attributes\":{\"embed\":{\"type\":\"image\"");
+		content = content.replace("\"insert\":\"​\"", "\"insert\":\"\\u200b​\"");
+
+		Info info = new Info();
+		info.setTitle(title);
+		info.setContent(content);
+        info.setInfoid(UUID.randomUUID().toString().replace("-", "").toLowerCase());
+        
+        System.out.println(content.toString());
+
 		infoDao.addInfo(info);
     }
 

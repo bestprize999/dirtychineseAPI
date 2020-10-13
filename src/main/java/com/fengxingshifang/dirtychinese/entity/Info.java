@@ -2,6 +2,8 @@ package com.fengxingshifang.dirtychinese.entity;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Info {
     private String infoid;
 
@@ -36,7 +38,7 @@ public class Info {
     private Date createdAt;
 
     private Date updatedAt;
-
+    
     public String getInfoid() {
         return infoid;
     }
@@ -172,4 +174,6 @@ public class Info {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }

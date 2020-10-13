@@ -236,7 +236,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <select id="getInfolistHome" resultMap="BaseResultMap">
+  	select * from info where infostatus = '01' order by rand() LIMIT #{count}
+  </select><update id="updateByExampleSelective" parameterType="map">
     update info
     <set>
       <if test="record.infoid != null">
@@ -318,9 +320,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <select id="getInfolistHome" resultMap="BaseResultMap">
-  	select * from info where infostatus = '01' order by rand() LIMIT #{count}
-  </select>
+  
   <select id="getInfolistMypublish" resultMap="BaseResultMap">
   	select * from info where publisher = #{userid} and infostatus = '01' order by lastupdatetime desc LIMIT #{count}
   </select>
@@ -379,12 +379,12 @@
       browsecount, commentcount, supportcount, 
       infostatus, commentlevel, isup, 
       created_at, updated_at)
-    values (#{info.infoid,jdbcType=VARCHAR}, #{info.infoorcomm,jdbcType=VARCHAR}, #{info.title,jdbcType=VARCHAR}, 
-      #{info.digest,jdbcType=VARCHAR}, #{info.content,jdbcType=VARCHAR}, #{info.publisher,jdbcType=VARCHAR}, 
-      #{info.phoneid,jdbcType=VARCHAR}, #{info.createtime,jdbcType=TIMESTAMP}, #{info.lastupdatetime,jdbcType=TIMESTAMP}, 
-      #{info.browsecount,jdbcType=INTEGER}, #{info.commentcount,jdbcType=INTEGER}, #{info.supportcount,jdbcType=INTEGER}, 
-      #{info.infostatus,jdbcType=VARCHAR}, #{info.commentlevel,jdbcType=VARCHAR}, #{info.isup,jdbcType=VARCHAR}, 
-      #{info.createdAt,jdbcType=TIMESTAMP}, #{info.updatedAt,jdbcType=TIMESTAMP})
+    values (#{infoid,jdbcType=VARCHAR}, #{infoorcomm,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{digest,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{publisher,jdbcType=VARCHAR}, 
+      #{phoneid,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, 
+      #{browsecount,jdbcType=INTEGER}, #{commentcount,jdbcType=INTEGER}, #{supportcount,jdbcType=INTEGER}, 
+      #{infostatus,jdbcType=VARCHAR}, #{commentlevel,jdbcType=VARCHAR}, #{isup,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP})
   </insert>
   <insert id="addComment" parameterType="com.fengxingshifang.dirtychinese.entity.Info">
     insert into comment (infoid, infoorcomm, title, 
